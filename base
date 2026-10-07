@@ -1,0 +1,1625 @@
+                    ┌──────────────────────┐
+                    │      React Web       │
+                    │ React Native (later) │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │      FastAPI API     │
+                    └──────────┬───────────┘
+                               │
+                ┌──────────────┴──────────────┐
+                │                             │
+                ▼                             ▼
+        ┌───────────────┐             ┌───────────────┐
+        │  PostgreSQL   │             │     Redis     │
+        │   + pgvector  │             │ Cache/Queue   │
+        └───────────────┘             └───────────────┘
+                │
+                ▼
+       ┌─────────────────────┐
+       │  AI Orchestrator    │
+       └──────────┬──────────┘
+                  │
+      ┌───────────┼────────────────────┐
+      │           │                    │
+      ▼           ▼                    ▼
+ Situation    Legal Research       Risk Analysis
+   Agent          Agent               Agent
+      │           │                    │
+      └───────────┼────────────────────┘
+                  ▼
+           ┌──────────────┐
+           │ RAG Pipeline │
+           └──────┬───────┘
+                  │
+        ┌─────────┴──────────┐
+        ▼                    ▼
+  Vector Search          Keyword Search
+  (pgvector)                (BM25)
+        │                    │
+        └─────────┬──────────┘
+                  ▼
+             Reranker
+                  │
+                  ▼
+          Legal Context
+                  │
+                  ▼
+           ┌──────────────┐
+           │ LLM Gateway  │
+           └──────┬───────┘
+                  │
+          ┌───────┴────────┐
+          ▼                ▼
+    Local LLM          Cloud LLM
+          │                │
+          └───────┬────────┘
+                  ▼
+       Citation Verification
+                  │
+                  ▼
+        Safety / Guardrails
+                  │
+                  ▼
+          Structured Answer
+                  │
+                  ▼
+               React
+			   
+			   
+			   
+			   Act as a Principal Software Architect, AI/ML Architect, RAG Engineer, DevOps Engineer, Kubernetes Architect, Security Engineer, and Technical Product Architect.
+
+Design a complete production-grade, end-to-end architecture for the following startup:
+
+PROJECT:
+AI-Powered Legal Guidance, Risk Awareness and Legal Reasoning Platform for India
+
+==================================================
+PRODUCT PURPOSE
+==================================================
+
+Users describe real-life legal situations in natural language.
+
+The platform must:
+
+1. Understand the situation
+2. Extract facts and context
+3. Identify legal issues
+4. Retrieve relevant Indian laws and legal sources
+5. Identify applicable sections
+6. Explain why those sections may apply
+7. Detect potential legal violations
+8. Predict potential legal risks
+9. Recommend safer/legal alternatives
+10. Recommend possible legal approaches
+11. Guide users in structuring arguments
+12. Identify useful evidence
+13. Generate structured drafts where appropriate
+14. Provide citations and source references
+15. Ask follow-up questions when information is insufficient
+16. Escalate high-risk cases toward qualified professionals
+
+The system must be positioned as legal information and decision support, not as a replacement for lawyers.
+
+==================================================
+MANDATORY TECHNOLOGY STACK
+==================================================
+
+Frontend:
+- React
+- React Native optional for future mobile application
+- TypeScript recommended
+
+Backend:
+- Python
+- FastAPI
+
+Database:
+- PostgreSQL
+- pgvector for vector search
+
+Containerization:
+- Podman
+
+CI/CD:
+- GitHub Actions
+
+Orchestration:
+- Kubernetes
+
+LLM:
+- Local LLM
+- Cloud LLM
+
+AI Architecture:
+- RAG
+- Multi-agent architecture
+
+==================================================
+RECOMMENDED ADDITIONAL TECHNOLOGIES
+==================================================
+
+Evaluate and recommend appropriate technologies for:
+
+- Redis
+- Object storage
+- Message queues
+- API Gateway
+- Authentication / authorization
+- Secrets management
+- Observability
+- Logging
+- Metrics
+- Tracing
+- Model gateway
+- Document processing
+- OCR
+- Embedding models
+- Reranking models
+- Evaluation framework
+- Prompt management
+- Feature flags
+- Rate limiting
+- Security scanning
+
+Do not add technologies unnecessarily.
+
+For every recommended technology, explain:
+- Why it is needed
+- What problem it solves
+- Whether it is required for MVP or later
+- Open-source alternatives
+- Cloud alternatives
+
+==================================================
+1. HIGH-LEVEL ARCHITECTURE
+==================================================
+
+Design the complete architecture from:
+
+User
+↓
+React Web Application
+↓
+API Gateway
+↓
+FastAPI Backend
+↓
+Authentication
+↓
+Conversation / Case Management
+↓
+AI Orchestration Layer
+↓
+Multi-Agent System
+↓
+RAG Pipeline
+↓
+Legal Knowledge Base
+↓
+Local/Cloud LLM
+↓
+Response Validation
+↓
+Citation Verification
+↓
+Frontend Response
+
+Also include:
+
+- PostgreSQL
+- pgvector
+- Redis
+- Object storage
+- Kubernetes
+- Podman
+- GitHub Actions
+
+Provide an architecture diagram using Mermaid.
+
+==================================================
+2. FRONTEND ARCHITECTURE
+==================================================
+
+Design a production React application.
+
+Include:
+
+- Folder structure
+- Pages
+- Components
+- State management
+- API communication
+- Authentication
+- Conversation interface
+- Case workspace
+- Legal source viewer
+- Risk visualization
+- Citation UI
+- Document generation UI
+- Error handling
+- Loading states
+- Accessibility
+- Responsive design
+
+Explain how React Native can later reuse backend APIs and shared logic.
+
+==================================================
+3. BACKEND ARCHITECTURE
+==================================================
+
+Design a clean FastAPI architecture.
+
+Use principles such as:
+
+- Modular architecture
+- SOLID
+- Dependency injection
+- Service layer
+- Repository pattern where useful
+- Async processing
+- Pydantic schemas
+- Centralized configuration
+- Structured logging
+- Exception handling
+- API versioning
+
+Provide a complete backend folder structure.
+
+Example:
+
+backend/
+├── app/
+│   ├── api/
+│   ├── core/
+│   ├── models/
+│   ├── schemas/
+│   ├── services/
+│   ├── repositories/
+│   ├── agents/
+│   ├── rag/
+│   ├── llm/
+│   ├── legal/
+│   ├── security/
+│   └── main.py
+
+Improve this structure if necessary.
+
+==================================================
+4. DATABASE ARCHITECTURE
+==================================================
+
+Design PostgreSQL schema.
+
+Include entities such as:
+
+- users
+- roles
+- permissions
+- conversations
+- cases
+- case_messages
+- situations
+- extracted_facts
+- legal_issues
+- legal_sources
+- legal_documents
+- legal_sections
+- citations
+- retrieved_chunks
+- risk_assessments
+- recommendations
+- evidence_items
+- generated_documents
+- feedback
+- audit_logs
+
+Use PostgreSQL + pgvector.
+
+Explain:
+
+- Relationships
+- Indexing
+- Vector storage
+- Metadata filtering
+- Versioning
+- Jurisdiction
+- Effective dates
+- Amendment tracking
+
+Provide an ER diagram using Mermaid.
+
+==================================================
+5. LEGAL KNOWLEDGE INGESTION PIPELINE
+==================================================
+
+Design the complete ingestion pipeline:
+
+Official source
+↓
+Document collection
+↓
+PDF/HTML processing
+↓
+OCR if necessary
+↓
+Cleaning
+↓
+Legal structure extraction
+↓
+Act/Section identification
+↓
+Metadata extraction
+↓
+Chunking
+↓
+Embedding
+↓
+Vector database
+↓
+Keyword/BM25 index if recommended
+↓
+Validation
+↓
+Versioning
+
+Explain how to handle:
+
+- Amendments
+- Repealed laws
+- New laws
+- State-specific laws
+- Central laws
+- Effective dates
+- Conflicting sources
+- Duplicate documents
+
+==================================================
+6. RAG ARCHITECTURE
+==================================================
+
+Design a high-quality legal RAG pipeline.
+
+Use:
+
+Query understanding
+↓
+Query rewriting
+↓
+Legal issue classification
+↓
+Hybrid retrieval
+↓
+Metadata filtering
+↓
+Vector retrieval
+↓
+Keyword retrieval
+↓
+Reranking
+↓
+Context assembly
+↓
+LLM generation
+↓
+Citation verification
+↓
+Grounding validation
+↓
+Final response
+
+Explain:
+
+- Chunking strategy
+- Embedding model selection
+- Top-K
+- Reranking
+- Similarity thresholds
+- Metadata filtering
+- Context window management
+- Query decomposition
+- Multi-hop retrieval
+- Citation generation
+- Hallucination prevention
+
+==================================================
+7. MULTI-AGENT ARCHITECTURE
+==================================================
+
+Design a multi-agent system.
+
+Recommended agents:
+
+1. Intake Agent
+2. Situation Understanding Agent
+3. Legal Issue Classification Agent
+4. Legal Research/Retrieval Agent
+5. Section Mapping Agent
+6. Violation/Risk Analysis Agent
+7. Legal Approach Agent
+8. Evidence Agent
+9. Argument Structuring Agent
+10. Drafting Agent
+11. Citation Verification Agent
+12. Safety/Compliance Agent
+13. Final Response Agent
+
+Do not blindly use all agents.
+
+Explain:
+
+- Which agents should actually exist
+- Which tasks should be deterministic instead
+- Agent responsibilities
+- Agent inputs
+- Agent outputs
+- Tools available to each agent
+- Communication protocol
+- Shared state
+- Memory
+- Failure handling
+- Human escalation
+
+Design an orchestrator that controls the workflow.
+
+==================================================
+8. LOCAL LLM + CLOUD LLM ARCHITECTURE
+==================================================
+
+The system must support both local and cloud LLMs.
+
+Design an LLM abstraction layer.
+
+Example:
+
+Application
+↓
+LLM Gateway
+├── Local Model
+└── Cloud Model
+
+The system should support:
+
+- Local inference
+- Cloud inference
+- Model selection
+- Fallback
+- Routing
+- Cost optimization
+- Privacy-sensitive routing
+- Latency optimization
+- Model health checks
+
+Explain when to use:
+
+Local LLM:
+- Sensitive information
+- Offline/self-hosted environments
+- Lower recurring inference cost
+- Internal workloads
+
+Cloud LLM:
+- Complex reasoning
+- High-quality generation
+- Large context
+- Difficult legal reasoning
+
+Recommend suitable open-source local models and suitable cloud model categories.
+
+Do not hard-code a vendor unless justified.
+
+==================================================
+9. MODEL ROUTING
+==================================================
+
+Design intelligent model routing.
+
+Example:
+
+Simple classification
+→ Local small model
+
+Embedding
+→ Dedicated embedding model
+
+Reranking
+→ Dedicated reranker
+
+Complex legal reasoning
+→ Strong cloud model
+
+Sensitive information
+→ Local model
+
+Final validation
+→ Deterministic + LLM validation
+
+Explain the routing strategy.
+
+==================================================
+10. LEGAL RISK ENGINE
+==================================================
+
+Design a separate risk-analysis component.
+
+Input:
+
+User situation
++
+Potential action
++
+Retrieved laws
++
+Jurisdiction
+
+Output:
+
+- Potential violation
+- Applicable provision
+- Conditions
+- Risk level
+- Explanation
+- Safer alternative
+- Confidence
+- Source
+
+Do not allow the LLM to independently invent legal conclusions.
+
+Design safeguards.
+
+==================================================
+11. RESPONSE CONTRACT
+==================================================
+
+Define a structured JSON response schema.
+
+Example:
+
+{
+  "situation_summary": "",
+  "legal_issues": [],
+  "applicable_laws": [],
+  "potential_violations": [],
+  "risk_level": "",
+  "safer_alternatives": [],
+  "recommended_approach": [],
+  "evidence": [],
+  "argument_framework": [],
+  "citations": [],
+  "uncertainties": [],
+  "professional_help_required": false
+}
+
+Improve this schema for production use.
+
+==================================================
+12. SECURITY
+==================================================
+
+Design security architecture.
+
+Include:
+
+- Authentication
+- Authorization
+- RBAC
+- JWT/session security
+- Encryption
+- TLS
+- Database encryption
+- Secrets management
+- API security
+- Rate limiting
+- Input validation
+- Prompt injection protection
+- RAG poisoning protection
+- Data isolation
+- Audit logs
+- PII protection
+- Sensitive document handling
+
+Explain how legal documents and conversations should be protected.
+
+==================================================
+13. PRIVACY
+==================================================
+
+Because users may submit highly sensitive legal situations, design:
+
+- Data minimization
+- Encryption
+- Retention policies
+- User-controlled deletion
+- Access controls
+- Auditability
+- LLM data handling
+- Local inference option
+- Anonymization where appropriate
+
+==================================================
+14. AI SAFETY
+==================================================
+
+Design safeguards against:
+
+- Hallucinated legal sections
+- Fake case citations
+- Outdated laws
+- Incorrect jurisdiction
+- Overconfident recommendations
+- Prompt injection
+- Malicious documents
+- Retrieval poisoning
+- Incorrect translations
+- Missing context
+
+The system must clearly communicate uncertainty.
+
+==================================================
+15. OBSERVABILITY
+==================================================
+
+Design observability using appropriate tools.
+
+Track:
+
+- API latency
+- LLM latency
+- Token usage
+- Retrieval latency
+- Retrieval quality
+- Agent failures
+- RAG failures
+- Citation failures
+- Model errors
+- Database performance
+- Kubernetes health
+- Cost
+
+Recommend:
+
+- OpenTelemetry
+- Prometheus
+- Grafana
+- Centralized logging
+
+if appropriate.
+
+==================================================
+16. RAG EVALUATION
+==================================================
+
+Define evaluation metrics:
+
+- Recall@K
+- Precision@K
+- MRR
+- NDCG
+- Context relevance
+- Faithfulness
+- Answer correctness
+- Citation accuracy
+- Citation completeness
+- Hallucination rate
+- Abstention accuracy
+
+Create a legal benchmark dataset.
+
+Include:
+
+- Common legal situations
+- Correct sections
+- Incorrect distractor sections
+- Jurisdiction
+- Expected reasoning
+- Ground-truth citations
+
+==================================================
+17. MULTILINGUAL ARCHITECTURE
+==================================================
+
+Design support for Indian languages.
+
+Potential languages:
+
+- English
+- Hindi
+- Telugu
+- Tamil
+- Kannada
+- Malayalam
+- Marathi
+- Bengali
+- Gujarati
+- Punjabi
+
+Explain:
+
+- Translation strategy
+- Multilingual embeddings
+- Language detection
+- Retrieval
+- Legal terminology preservation
+- Output verification
+
+==================================================
+18. DEVOPS
+==================================================
+
+Use:
+
+Podman
++
+GitHub Actions
++
+Kubernetes
+
+Design:
+
+Developer
+↓
+Git
+↓
+GitHub
+↓
+GitHub Actions
+↓
+Tests
+↓
+Linting
+↓
+Security scanning
+↓
+Build Podman container
+↓
+Container registry
+↓
+Kubernetes deployment
+↓
+Staging
+↓
+Production
+
+Explain:
+
+- CI pipeline
+- CD pipeline
+- Container strategy
+- Image scanning
+- Secrets
+- Environment configuration
+- Rollbacks
+- Blue/green or canary deployment
+- Horizontal scaling
+
+==================================================
+19. KUBERNETES ARCHITECTURE
+==================================================
+
+Design Kubernetes deployment.
+
+Include possible services:
+
+- frontend
+- api
+- ai-orchestrator
+- worker
+- rag-service
+- ingestion-service
+- llm-gateway
+- postgres
+- redis
+- monitoring
+
+Explain which components should be:
+
+- Deployment
+- StatefulSet
+- Job
+- CronJob
+- Service
+- Ingress
+- ConfigMap
+- Secret
+- HPA
+
+Do not over-engineer the MVP.
+
+==================================================
+20. PODMAN
+==================================================
+
+Design container strategy using Podman.
+
+Provide:
+
+- Container architecture
+- Containerfile examples
+- Multi-stage builds
+- Local development workflow
+- Security best practices
+- Rootless containers
+
+==================================================
+21. GITHUB ACTIONS
+==================================================
+
+Create CI/CD workflow designs for:
+
+- Pull request
+- Unit tests
+- Integration tests
+- RAG tests
+- Security scans
+- Build
+- Container scan
+- Push image
+- Deploy staging
+- Approval
+- Deploy production
+
+==================================================
+22. API DESIGN
+==================================================
+
+Design REST APIs using FastAPI.
+
+Examples:
+
+POST /api/v1/cases
+POST /api/v1/cases/{id}/messages
+POST /api/v1/analyze
+GET /api/v1/cases/{id}
+GET /api/v1/legal/sources
+GET /api/v1/legal/sections
+POST /api/v1/documents/draft
+POST /api/v1/feedback
+
+Improve and organize the API design.
+
+Provide request/response examples.
+
+==================================================
+23. END-TO-END REQUEST FLOW
+==================================================
+
+Show exactly what happens when:
+
+User enters:
+
+"My landlord is refusing to return my security deposit."
+
+Trace the request through:
+
+React
+→ FastAPI
+→ authentication
+→ case creation
+→ orchestrator
+→ situation agent
+→ legal issue agent
+→ retrieval
+→ reranking
+→ section mapping
+→ risk analysis
+→ recommendation
+→ citation verification
+→ final response
+→ PostgreSQL
+→ React
+
+Show the complete data flow.
+
+==================================================
+24. FAILURE SCENARIOS
+==================================================
+
+Explain what happens when:
+
+- No relevant law is found
+- Retrieval confidence is low
+- Conflicting laws are retrieved
+- Law is outdated
+- Jurisdiction is unclear
+- LLM fails
+- Local model is unavailable
+- Cloud model is unavailable
+- Database is unavailable
+- User gives insufficient information
+- User asks for prohibited assistance
+- Retrieved document contains prompt injection
+
+==================================================
+25. MVP VS FUTURE ARCHITECTURE
+==================================================
+
+Create two architectures:
+
+MVP:
+Keep it simple.
+
+Use:
+- React
+- FastAPI
+- PostgreSQL
+- pgvector
+- Redis if required
+- One local LLM
+- One cloud LLM
+- Basic RAG
+- Limited agents
+- Podman
+- GitHub Actions
+- Kubernetes
+
+Future:
+Add:
+- Advanced multi-agent orchestration
+- Multilingual support
+- Lawyer marketplace/escalation
+- Mobile app
+- Advanced legal analytics
+- Enterprise deployments
+- Advanced evaluation
+- More sophisticated model routing
+
+==================================================
+26. RECOMMENDED TECH STACK
+==================================================
+
+Give a final recommended stack.
+
+For every technology provide:
+
+Technology
+Purpose
+Why selected
+MVP/Future
+Alternative
+
+The mandatory stack is:
+
+Frontend:
+React
+React Native optional
+
+Backend:
+Python
+FastAPI
+
+Database:
+PostgreSQL
+pgvector
+
+Container:
+Podman
+
+CI/CD:
+GitHub Actions
+
+Orchestration:
+Kubernetes
+
+AI:
+RAG
+Multi-agent architecture
+Local LLM
+Cloud LLM
+
+Recommend the remaining technologies only where justified.
+
+==================================================
+27. PROJECT STRUCTURE
+==================================================
+
+Provide a complete monorepo structure.
+
+Example:
+
+legal-ai/
+├── apps/
+│   ├── web/
+│   └── mobile/
+├── services/
+│   ├── api/
+│   ├── ai-orchestrator/
+│   ├── rag/
+│   ├── ingestion/
+│   └── workers/
+├── packages/
+│   ├── shared-types/
+│   └── ui/
+├── infrastructure/
+│   ├── podman/
+│   ├── kubernetes/
+│   └── github-actions/
+├── data/
+├── evaluation/
+├── docs/
+└── README.md
+
+Improve this based on the final architecture.
+
+==================================================
+28. DEVELOPMENT ROADMAP
+==================================================
+
+Create an implementation roadmap.
+
+Phase 1:
+Foundation
+
+Phase 2:
+Legal knowledge ingestion
+
+Phase 3:
+RAG
+
+Phase 4:
+Multi-agent reasoning
+
+Phase 5:
+Risk engine
+
+Phase 6:
+Frontend
+
+Phase 7:
+Security
+
+Phase 8:
+Evaluation
+
+Phase 9:
+Deployment
+
+Phase 10:
+Pilot
+
+For each phase provide:
+
+- Tasks
+- Dependencies
+- Deliverables
+- Recommended duration
+- Team requirements
+
+==================================================
+29. FINAL OUTPUT
+==================================================
+
+Produce the following:
+
+1. Executive architecture summary
+2. System architecture diagram
+3. Component architecture
+4. Data flow diagram
+5. Multi-agent architecture
+6. RAG architecture
+7. LLM routing architecture
+8. Database architecture
+9. ER diagram
+10. API architecture
+11. Security architecture
+12. Kubernetes architecture
+13. CI/CD architecture
+14. Complete project folder structure
+15. Recommended technology stack
+16. MVP architecture
+17. Production architecture
+18. Development roadmap
+19. Failure handling strategy
+20. AI evaluation strategy
+21. Scalability strategy
+22. Cost optimization strategy
+
+IMPORTANT ARCHITECTURAL PRINCIPLES:
+
+- Do not over-engineer the MVP.
+- Separate deterministic logic from LLM reasoning.
+- Never allow an LLM to invent legal citations.
+- Ground legal answers in retrieved sources.
+- Every important legal claim should have a citation.
+- Preserve legal source versions and effective dates.
+- Treat jurisdiction as a first-class field.
+- Design for Indian legal data.
+- Design for privacy by default.
+- Support local and cloud LLMs through an abstraction layer.
+- Use agents only where they provide clear value.
+- Prefer reliable workflows over unnecessary autonomous agents.
+- Design for production deployment on Kubernetes.
+- Keep the architecture modular enough to evolve into a large-scale startup.
+
+Finally, explain the architecture in a way that both:
+1. A non-technical investor can understand the overall system
+2. A software engineering team can use it to begin implementation
+
+You are a senior AI product architect, legal-tech researcher, startup strategist, and social-impact technology expert.
+
+I am building a social-impact startup in India focused on improving access to legal knowledge and helping people understand the legal implications of their real-life situations.
+
+PROJECT NAME:
+[Choose a suitable name]
+
+CORE IDEA:
+
+Build an AI-powered Legal Guidance and Legal Risk Awareness platform where a user can describe a real-life situation or legal problem in simple natural language.
+
+The system should understand the user's situation and provide structured, source-grounded legal guidance.
+
+The platform should NOT simply behave like a legal search engine or chatbot.
+
+The core value proposition is:
+
+"Tell us what happened, what you are planning to do, or what problem you are facing — and the system helps you understand the relevant laws, potential violations, possible legal risks, safer alternatives, appropriate legal approaches, and how to structure your explanation or argument."
+
+IMPORTANT:
+The platform is a legal information and decision-support system, NOT a replacement for a qualified lawyer.
+
+==================================================
+1. USER INPUT
+==================================================
+
+The user should be able to describe situations in natural language.
+
+Examples:
+
+"My employer has not paid my salary for two months and is threatening to terminate me."
+
+"My landlord is refusing to return my security deposit."
+
+"I want to terminate an employee without giving notice."
+
+"My company wants to collect customer biometric information."
+
+"A person shared my private photos without my permission."
+
+"I bought a defective product and the seller refuses to refund me."
+
+"I am planning to start a business and want to know what legal requirements I need to follow."
+
+The user should not need to know legal terminology.
+
+The system should understand:
+- Who is involved
+- What happened
+- What actions have already occurred
+- What actions the user is planning to take
+- Location/jurisdiction
+- Relevant dates
+- Relationships between parties
+- Contracts/documents mentioned
+- Potential harm
+- User's objective
+
+==================================================
+2. SITUATION UNDERSTANDING
+==================================================
+
+The system should first convert the user's natural-language description into a structured situation representation.
+
+Extract:
+
+- Parties
+- Roles
+- Events
+- Actions
+- Intent
+- Location
+- Jurisdiction
+- Timeline
+- Documents
+- Claims
+- Potential violations
+- Potential rights
+- Potential obligations
+- Missing information
+- User's desired outcome
+
+If critical information is missing, the system should ask targeted follow-up questions before giving a highly specific conclusion.
+
+==================================================
+3. LEGAL ISSUE IDENTIFICATION
+==================================================
+
+Identify the possible legal issues involved.
+
+For example:
+
+Input:
+"My employer terminated me without notice and has not paid my salary."
+
+Possible issues:
+- Employment termination
+- Notice requirements
+- Wage payment
+- Employment contract
+- Applicable labour regulations
+- Potential compensation
+- Appropriate complaint mechanism
+
+The system should rank issues by relevance.
+
+==================================================
+4. RAG-BASED LEGAL KNOWLEDGE
+==================================================
+
+Use Retrieval-Augmented Generation.
+
+The system should retrieve information from a verified legal knowledge base.
+
+Potential sources include:
+
+- Indian Constitution
+- Central Acts
+- State Acts
+- Rules
+- Regulations
+- Notifications
+- Government circulars
+- Official government sources
+- Court judgments
+- Supreme Court judgments
+- High Court judgments
+- Legal Services Authorities information
+- Government schemes
+- Regulatory guidelines
+- Official legal procedures
+
+The knowledge base must maintain metadata such as:
+
+- Act
+- Section
+- Subsection
+- Jurisdiction
+- State
+- Effective date
+- Amendment date
+- Source
+- Authority
+- Document version
+- Citation
+- Legal domain
+
+The system must distinguish current law from outdated or repealed provisions.
+
+==================================================
+5. APPLICABLE LAW / SECTION IDENTIFICATION
+==================================================
+
+For every identified legal provision, explain:
+
+1. Act/Law name
+2. Section
+3. Relevant provision
+4. Why it may apply
+5. Which facts support its applicability
+6. Conditions required for applicability
+7. Exceptions
+8. Jurisdiction
+9. Source/citation
+10. Confidence level
+
+Separate:
+
+- Primary applicable provisions
+- Supporting provisions
+- Potentially relevant provisions
+- Provisions that do NOT appear applicable
+
+Do not blindly return large numbers of sections.
+
+==================================================
+6. LEGAL VIOLATION / RISK ANALYSIS
+==================================================
+
+This is one of the core differentiators.
+
+The system should analyze:
+
+"What could happen legally if the user performs a particular action?"
+
+Example:
+
+User:
+"I want to publish a person's private information online because they owe me money."
+
+System should explain:
+
+Potential legal risks:
+- Privacy-related concerns
+- Defamation-related concerns
+- Other potentially applicable provisions depending on facts
+
+Then explain:
+
+"If you perform ACTION X, these legal provisions may become relevant."
+
+The system should classify risk as:
+
+- Low
+- Moderate
+- High
+- Critical
+
+However, the system must explain the reasoning and avoid presenting the risk score as a definitive legal conclusion.
+
+==================================================
+7. SAFE / COMPLIANT ALTERNATIVES
+==================================================
+
+For risky actions, provide safer alternatives.
+
+Example:
+
+Instead of:
+"Publicly post the person's information."
+
+Suggest:
+- Send a formal notice
+- Use an appropriate dispute-resolution mechanism
+- File a complaint through the relevant authority
+- Seek professional legal assistance where appropriate
+
+The system should focus on lawful alternatives rather than simply saying "don't do this."
+
+==================================================
+8. LEGAL APPROACH
+==================================================
+
+The system should explain possible approaches.
+
+For example:
+
+1. Informal resolution
+2. Written complaint
+3. Legal notice
+4. Administrative authority
+5. Mediation
+6. Consumer forum
+7. Labour authority
+8. Police complaint where appropriate
+9. Civil proceedings
+10. Other relevant legal mechanisms
+
+The system should explain:
+
+- Why an approach may be suitable
+- When it may be appropriate
+- What documents may be required
+- What information should be preserved
+- What the user should avoid doing
+
+Do not automatically recommend litigation.
+
+==================================================
+9. ARGUMENT / CASE STRUCTURING
+==================================================
+
+If the user needs to explain or present their position, generate a structured framework:
+
+1. Background
+2. Chronology of events
+3. Key facts
+4. Legal issue
+5. Applicable law
+6. Connection between facts and law
+7. Harm/damage
+8. Evidence
+9. Requested remedy
+
+The system should explain how to construct a logical argument.
+
+It should NOT fabricate facts or evidence.
+
+==================================================
+10. EVIDENCE GUIDANCE
+==================================================
+
+Identify potentially useful evidence based on the situation.
+
+Examples:
+
+- Contracts
+- Emails
+- Messages
+- Payment records
+- Receipts
+- Photographs
+- Videos
+- Official notices
+- Identity documents where legitimately relevant
+- Witness information
+
+Explain why the evidence may matter.
+
+Never encourage users to fabricate, alter, destroy, or illegally obtain evidence.
+
+==================================================
+11. DOCUMENT / DRAFTING ASSISTANCE
+==================================================
+
+Where appropriate, allow users to generate drafts such as:
+
+- Complaint outline
+- Legal notice outline
+- Consumer complaint structure
+- Workplace grievance
+- Information request
+- Response to a notice
+- Chronology of events
+
+Every generated document should be clearly marked as a draft requiring review where appropriate.
+
+==================================================
+12. MULTILINGUAL ACCESS
+==================================================
+
+The system should eventually support major Indian languages.
+
+The user may:
+
+- Ask questions in English
+- Ask questions in Hindi
+- Ask questions in Telugu
+- Ask questions in other supported Indian languages
+
+The system should retrieve legal sources accurately while presenting explanations in the user's preferred language.
+
+Legal citations should remain precise even when explanations are translated.
+
+==================================================
+13. USER TYPES
+==================================================
+
+Primary users:
+
+- Common citizens
+- Students
+- Employees
+- Workers
+- Small business owners
+- Entrepreneurs
+- Consumers
+- Rural/semi-urban users
+
+Secondary users:
+
+- Law students
+- NGOs
+- Legal aid organizations
+- Paralegals
+- Legal professionals
+- Social-impact organizations
+
+==================================================
+14. CORE PRODUCT MODULES
+==================================================
+
+Design the product around modules such as:
+
+1. User Authentication
+2. User Profile
+3. Situation Analyzer
+4. Legal Issue Classifier
+5. RAG Retrieval Engine
+6. Legal Knowledge Base
+7. Legal Section Mapper
+8. Violation Risk Analyzer
+9. Safe Alternative Generator
+10. Legal Approach Recommender
+11. Argument Structuring Assistant
+12. Evidence Guidance
+13. Document Drafting Assistant
+14. Citation / Source Verification
+15. Conversation History
+16. Case Workspace
+17. Multilingual Layer
+18. Feedback System
+19. Human Lawyer Escalation
+20. Admin / Knowledge Management
+
+==================================================
+15. SAFETY PRINCIPLES
+==================================================
+
+The platform must:
+
+- Never claim to be a lawyer
+- Never guarantee a legal outcome
+- Clearly distinguish legal information from professional legal advice
+- Show sources
+- Show uncertainty
+- Ask for missing information
+- Avoid hallucinated sections
+- Avoid fabricated case law
+- Prefer official sources
+- Detect outdated law
+- Respect jurisdiction
+- Protect sensitive user information
+- Avoid storing unnecessary personal information
+- Provide escalation to qualified legal professionals for high-risk situations
+
+==================================================
+16. BUSINESS / SOCIAL IMPACT
+==================================================
+
+The platform should be designed as a viable social-impact startup.
+
+Potential models:
+
+- Free basic access
+- Premium advanced features
+- B2B subscriptions
+- NGO partnerships
+- Legal-aid organization partnerships
+- University partnerships
+- Enterprise compliance products
+- Government/CSR-supported deployments
+
+However, the primary goal is improving legal awareness and access to justice.
+
+==================================================
+17. FINAL PRODUCT EXPERIENCE
+==================================================
+
+The ideal user experience should be:
+
+User:
+"I have this problem..."
+
+System:
+
+UNDERSTANDING
+"What we understood from your situation..."
+
+LEGAL ISSUES
+"These legal issues may be involved..."
+
+APPLICABLE LAW
+"These provisions may be relevant..."
+
+WHY
+"These provisions may apply because..."
+
+POTENTIAL VIOLATIONS
+"If you take these actions, these legal risks may arise..."
+
+RISK LEVEL
+"Potential risk: Moderate"
+
+SAFER OPTIONS
+"Consider these alternatives..."
+
+RECOMMENDED APPROACH
+"Possible next steps..."
+
+EVIDENCE
+"These documents/information may be useful..."
+
+ARGUMENT STRUCTURE
+"Here is how you can organize your explanation..."
+
+SOURCES
+"Here are the verified legal sources used..."
+
+PROFESSIONAL HELP
+"For high-risk matters, consult a qualified legal professional."
+
+==================================================
+
+Now convert this concept into a concise but complete startup product specification.
+
+Explain:
+- What the product is
+- What problem it solves
+- Who it helps
+- What makes it different
+- Core features
+- End-user experience
+- Social impact
+- Startup potential
+
+Keep the explanation understandable to a non-technical investor while retaining enough technical depth for an engineering team.
