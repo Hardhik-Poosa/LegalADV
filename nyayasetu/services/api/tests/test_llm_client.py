@@ -3,7 +3,7 @@ import json
 import httpx
 import pytest
 
-from llm_client import (
+from app.llm.llm_client import (
     ChatMessage,
     LLMResponseError,
     LLMUnavailableError,

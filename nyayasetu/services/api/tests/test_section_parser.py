@@ -1,6 +1,6 @@
 import pytest
 
-from section_parser import ActSectionParser, ParseError
+from app.ingestion.section_parser import ActSectionParser, ParseError
 
 SAMPLE = """\
 73. Compensation for loss or damage caused by breach of contract.—When a contract has been broken,

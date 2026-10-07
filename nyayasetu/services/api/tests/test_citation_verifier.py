@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from citation_verifier import (
+from app.rag.citation_verifier import (
     Citation,
     CitationVerificationError,
     CitationVerifier,
