@@ -5,7 +5,6 @@ Pure Python — no I/O, no DB, no LLM calls.
 from __future__ import annotations
 
 import pytest
-
 from app.ingestion.chunker import ChunkerConfig, TextChunk, chunk_text
 from app.ingestion.exceptions import ChunkingError
 
